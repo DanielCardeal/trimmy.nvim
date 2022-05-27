@@ -29,7 +29,7 @@ end
 ---@return nil
 function read.saved_file()
     local filename = vim.api.nvim_buf_get_name(0)
-    local file = io.open(filename, "r")
+    local file = io.open(filename, "rb")
     if not file then return nil end
     local text = file:read("a")
     file:close()
