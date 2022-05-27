@@ -29,6 +29,10 @@ function trimmy.trim_diffed_whitespace()
     local saved = read.saved_file()
     local buffer = read.all_buffer()
     local hunks = vim.diff(saved, buffer, { result_type = "indices" })
+
+    -- No changes, nothing to do
+    if #hunks == 0 then return end
+
     for _, hunk in ipairs(hunks) do
         trim_diff_hunk(hunk)
     end
