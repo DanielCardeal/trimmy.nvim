@@ -26,11 +26,13 @@ function read.buffer_block(line_start, block_size)
 end
 
 ---Read last saved version of current file to a lua string.
----@return nil
+---
+---If there is no saved version of current file, return an empty string.
+---@return string
 function read.saved_file()
     local filename = vim.api.nvim_buf_get_name(0)
     local file = io.open(filename, "rb")
-    if not file then return nil end
+    if not file then return "" end
     local text = file:read("a")
     file:close()
     return text:sub(1, text:len() - 1)
