@@ -43,4 +43,48 @@ function trimmy.trim_diffed_whitespace()
     end
 end
 
+--- Default options for user configuration.
+local DEFAULT_OPTS = {
+    --- Whether to set up auto-trimming or not.
+    trim_on_save = true,
+    --- Filetypes to configure trim on save.
+    patterns = { "*" },
+}
+
+--- Create user command for on-demand trimming.
+--- @param opts table
+--- @return nil
+local function setup_cmd(opts)
+    vim.api.nvim_create_user_command(
+        "Trimmy",
+        trimmy.trim_diffed_whitespace,
+        {}
+    )
+end
+
+--- Create autocommand for pre save trimming of buffer.
+--- @param opts table
+--- @return nil
+local function setup_autocmd(opts)
+    local group = vim.api.nvim_create_augroup("TrimmyGroup", {})
+    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+        pattern = opts.patterns,
+        callback = trimmy.trim_diffed_whitespace,
+        group = group,
+    })
+end
+
+--- Setup trimmy based on user preferences.
+--- @param opts table
+--- @return nil
+function trimmy.setup(opts)
+    -- Safely recover user options
+    opts = opts or {}
+    setmetatable(opts, { __index = DEFAULT_OPTS })
+    setup_cmd(opts)
+    if opts.trim_on_save then
+        setup_autocmd(opts)
+    end
+end
+
 return trimmy
