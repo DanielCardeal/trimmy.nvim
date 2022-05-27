@@ -25,6 +25,7 @@ local function trim_diff_hunk(diff_hunk)
 end
 
 ---Trims whitespace of changed lines in the current buffer.
+---@return nil
 function trimmy.trim_diffed_whitespace()
     local saved = read.saved_file()
     local buffer = read.all_buffer()
