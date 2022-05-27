@@ -33,7 +33,7 @@ function read.saved_file()
     if not file then return nil end
     local text = file:read("a")
     file:close()
-    return text
+    return text:sub(1, text:len() - 1)
 end
 
 return read
