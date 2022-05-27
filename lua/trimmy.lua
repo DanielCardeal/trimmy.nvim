@@ -24,6 +24,10 @@ local function trim_diff_hunk(diff_hunk)
     write.buffer_block(line_start, block_size, trimmed_block)
 end
 
+--[[##########################################################
+                        PUBLIC API
+--###########################################################]]
+
 ---Trims whitespace of changed lines in the current buffer.
 ---@return nil
 function trimmy.trim_diffed_whitespace()
