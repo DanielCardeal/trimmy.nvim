@@ -1,0 +1,88 @@
+*trimmy.txt*
+
+TABLE OF CONTENTS                                                 *trimmy-toc*
+
+Introduction                                          |trimmy-introduction|
+Requirements                                          |trimmy-requirements|
+Getting started                                       |trimmy-getting-started|
+Features                                              |trimmy-features|
+API                                                   |trimmy-api|
+
+==============================================================================
+INTRODUCTION                                             *trimmy-introduction*
+
+A simple, non-intrusive, diff-based, whitespace trimmer that prevents you from
+being hated by your coworkers!
+
+==============================================================================
+REQUIREMENTS                                             *trimmy-requirements*
+
+- Neovim v0.7.0+;`trimmy` uses the Neovim api for setting up its commands and
+  auto commands.
+
+==============================================================================
+GETTING STARTED                                       *trimmy-getting-started*
+
+Just install via your favorite package manager and call
+`require('trimmy').setup()` somewhere in your `init.lua`!
+
+Packer: >
+        use {
+                "DanielCardeal/trimmy",
+                config = function()
+                        require('trimmy').setup()
+                end,
+        }
+<
+==============================================================================
+FEATURES                                                     *trimmy-features*
+
+- Trims all kinds of whitespace (tabs & spaces).
+- Ignores unchanged lines; let'em deal with their own madness!
+
+==============================================================================
+API                                                               *trimmy-api*
+
+This section brings an in-depth view of the API exposed by trimmy.
+
+NOTE for better understanding of the following examples, please ensure
+that the |list| mode is enabled ("set list" on the command prompt).
+
+                                             *trimmy.trim_diffed_whitespace()*
+trimmy.trim_diffed_whitespace()
+
+        Remove whitespaces from edited lines in the current buffer. Changed
+        files are detected by diffing the last saved file with current buffer
+        contents. This means that a file saved with the contents: >
+        Old line edited by not-so-friendly contributor    
+        ...
+<
+        Modified to: >
+        Old line edited by not-so-friendly contributor    
+        New line edited by woke trimmy user    
+        ...
+<
+        Is transformed into: >
+        Old line edited by not-so-friendly contributor    
+        New line edited by woke trimmy user
+        ...
+<
+        After running this function.
+
+                                                              *trimmy.setup()*
+trimmy.setup({opts})
+
+        Setup `trimmy` commands and auto commands based on user options.
+        When {opts} is `nil`, default options are used. Different behavior can
+        be achieved by passing a table with one, or multiple, of the following
+        keys set:
+
+        1. trim_on_save:                                     (default: `true`)
+        Configure a `BufWritePre` auto command for automatically trim changed
+        lines. The auto command is contained in a `augroup` called
+        "TrimmyGroup".
+
+        2. patterns:                                          (default: `{*}`)
+        List of file patterns to enable `trim_on_save`.
+
+vim:tw=78:ts=8:ft=help:list:norl:
