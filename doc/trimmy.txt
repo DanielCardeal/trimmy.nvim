@@ -6,6 +6,7 @@ Introduction                                          |trimmy-introduction|
 Requirements                                          |trimmy-requirements|
 Getting started                                       |trimmy-getting-started|
 Features                                              |trimmy-features|
+Commands                                              |trimmy-commands|
 API                                                   |trimmy-api|
 
 ==============================================================================
@@ -34,11 +35,21 @@ Packer: >
                 end,
         }
 <
+After that, trimmy will silently trim edited lines on save.
+
 ==============================================================================
 FEATURES                                                     *trimmy-features*
 
 - Trims all kinds of whitespace (tabs & spaces).
-- Ignores unchanged lines; let'em deal with their own madness!
+- Ignores unchanged lines based on last saved version of file
+
+==============================================================================
+COMMANDS                                                     *trimmy-commands*
+
+`trimmy` creates the following commands:
+
+- `Trimmy`: trim changed contents of current buffer.
+- `TrimmyToggleTrimOnSave`: toggles trim on save for all filetypes.
 
 ==============================================================================
 API                                                               *trimmy-api*
@@ -77,12 +88,12 @@ trimmy.setup({opts})
         be achieved by passing a table with one, or multiple, of the following
         keys set:
 
-        1. trim_on_save:                                     (default: `true`)
+        1. trimOnSave:                                     (default: `true`)
         Configure a `BufWritePre` auto command for automatically trim changed
         lines. The auto command is contained in a `augroup` called
         "TrimmyGroup".
 
         2. patterns:                                          (default: `{*}`)
-        List of file patterns to enable `trim_on_save`.
+        List of file patterns to enable `trimOnSave`.
 
 vim:tw=78:ts=8:ft=help:list:norl:
