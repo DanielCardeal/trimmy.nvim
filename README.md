@@ -14,13 +14,13 @@ problem:
 2. Before your changes are saved, your whitespace trimmer of choice deletes
    **all** the file's end of line whitespaces.
 
-3. You try to commit your changes, but cannot find where they are, since your
+3. You try to commit your changes but cannot find where they are, since your
    `git status` is polluted with irrelevant whitespace changes.
 
-4. Suffer.
+4. You start reconsidering your life choices and call it quits for the day.
 
 Having suffered with this problem myself, I have then decided to implement a
-simple plugin to trim whitespace only on changed lines.
+simple plugin to trim whitespace only on changed lines of edited buffers.
 
 ## Requirements
 
