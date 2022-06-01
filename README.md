@@ -46,5 +46,23 @@ use {
 }
 ```
 
-After that, `trimmy` should be able to detect which lines were modified and trim
-whitespace as necessary.
+After that, `trimmy` should be able to detect and trim modified lines before
+saving a buffer.
+
+## Commands
+
+This plugin exposes the following commands:
+
+- `Trimmy`: trims contents of current edited buffer. 
+
+- `TrimmyToggleTrimOnSave`: toggles trim-on-save functionality.
+
+## Customization
+
+A table of options can be passed to the `setup` function to configure the
+plugin behavior. Current options are:
+
+- `trimOnSave` (boolean): whether to enable auto-trimming on save on plugin
+  initialization.
+
+- `pattern` (list of strings): file patterns for files to trim on save.
