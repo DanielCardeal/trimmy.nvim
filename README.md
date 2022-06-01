@@ -28,7 +28,7 @@ Since this plugin uses the newest features of Neovim's API, Neovim 0.7.0+ is
 required.
 
 There may be some Vim compatible alternative for `trimmy` in the future, but
-this is not our top priority at the moment.
+this is not my top priority at the moment.
 
 ## Installation
 
