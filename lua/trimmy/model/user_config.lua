@@ -29,6 +29,7 @@ end
 ---@param opts table
 ---@return UserConfig
 function UserConfig:from(opts)
+    opts = opts or {}
     local badOpt = validateOptKeys(opts)
     if badOpt then
         local err = string.format(
@@ -38,7 +39,7 @@ function UserConfig:from(opts)
         error(err)
     end
 
-    local obj = opts or {}
+    local obj = opts
     setmetatable(obj, { __index = self })
     return obj
 end
