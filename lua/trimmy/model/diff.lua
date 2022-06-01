@@ -111,7 +111,9 @@ function Diff:update()
     )
 end
 
-function Diff:write()
+---Detect and trim changes from current buffer
+function Diff:trim()
+    self:update()
     if #self.changeList == 0 then return end
     for _, changeBlock in ipairs(self.changeList) do
         local lineStart = changeBlock[3] - 1

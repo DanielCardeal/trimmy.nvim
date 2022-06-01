@@ -9,8 +9,7 @@ local Diff = require('trimmy.model.diff')
 ---@param bufnr number
 local function trimBuffer(bufnr)
     local diff = Diff:new(bufnr)
-    diff:update()
-    diff:write()
+    diff:trim()
 end
 
 --[[###########################################################################
