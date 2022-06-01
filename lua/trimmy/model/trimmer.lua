@@ -1,5 +1,5 @@
----@class Diff
-local Diff = {
+---@class Trimmer
+local Trimmer = {
     bufnr = 0,
     bufname = "",
     changeList = {},
@@ -89,9 +89,9 @@ end
                             PUBLIC FUNCTIONS
 ##############################################################################]]
 
----Create a diff for the buffer `bufnr`.
----@return Diff
-function Diff:new(bufnr)
+---Create a trimmer for the buffer `bufnr`.
+---@return Trimmer
+function Trimmer:new(bufnr)
     local obj = {}
     setmetatable(obj, { __index = self })
     obj.bufnr = bufnr
@@ -101,7 +101,7 @@ end
 
 ---Update objects `changeList` based on the difference between buffer contents
 ---and saved file.
-function Diff:update()
+function Trimmer:update()
     local bufContents = readAllBuffer(self.bufnr)
     local fileContents = readSavedFile(self.bufname)
     self.changeList = vim.diff(
@@ -111,8 +111,8 @@ function Diff:update()
     )
 end
 
----Detect and trim changes from current buffer
-function Diff:trim()
+---Detect and trim changes from the buffer.
+function Trimmer:trim()
     self:update()
     if #self.changeList == 0 then return end
     for _, changeBlock in ipairs(self.changeList) do
@@ -123,4 +123,4 @@ function Diff:trim()
     end
 end
 
-return Diff
+return Trimmer

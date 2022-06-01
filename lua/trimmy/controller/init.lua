@@ -1,5 +1,5 @@
 local view = require('trimmy.view')
-local Diff = require('trimmy.model.diff')
+local Trimmer = require('trimmy.model.trimmer')
 
 --[[###########################################################################
                             PRIVATE FUNCTIONS
@@ -8,8 +8,8 @@ local Diff = require('trimmy.model.diff')
 ---Trim changes in buffer `buffnr`.
 ---@param bufnr number
 local function trimBuffer(bufnr)
-    local diff = Diff:new(bufnr)
-    diff:trim()
+    local trimmer = Trimmer:new(bufnr)
+    trimmer:trim()
 end
 
 --[[###########################################################################
