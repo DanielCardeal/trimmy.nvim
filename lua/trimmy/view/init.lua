@@ -14,10 +14,24 @@ function view.init(trimBuffer, userConfig)
         {}
     )
 
-    -- Setup trimOnSave toggling
     local enabled = false
     local autocmdId = nil
     local trimmyGroup = vim.api.nvim_create_augroup("TrimmyGroup", {})
+
+    -- Setup startup trim on save
+    if userConfig.trimOnSave then
+        autocmdId = vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+            group = trimmyGroup,
+            pattern = userConfig.pattern,
+            callback = function()
+                local bufnr = vim.call('bufnr')
+                trimBuffer(bufnr)
+            end
+        })
+        enabled = true
+    end
+
+    -- Setup trimOnSave toggling
     local toggleTrimOnSave = function()
         if not enabled then
             autocmdId = vim.api.nvim_create_autocmd({ "BufWritePre" }, {
@@ -29,9 +43,11 @@ function view.init(trimBuffer, userConfig)
                 end
             })
             enabled = true
+            vim.notify('Enabled trim-on-save.', vim.log.levels.INFO)
         else
             vim.api.nvim_del_autocmd(autocmdId)
             enabled = false
+            vim.notify('Disabled trim-on-save.', vim.log.levels.INFO)
         end
     end
 
@@ -40,11 +56,6 @@ function view.init(trimBuffer, userConfig)
         toggleTrimOnSave,
         {}
     )
-
-    -- Initialize with trimOnSave enabled
-    if userConfig.trimOnSave then
-        toggleTrimOnSave()
-    end
 end
 
 return view
