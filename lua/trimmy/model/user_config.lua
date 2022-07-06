@@ -25,6 +25,7 @@ end
 --[[###########################################################################
                             PUBLIC FUNCTIONS
 ##############################################################################]]
+
 ---Create UserConfig object based on user passed options.
 ---@param opts table
 ---@return UserConfig
@@ -32,11 +33,11 @@ function UserConfig:from(opts)
     opts = opts or {}
     local badOpt = validateOptKeys(opts)
     if badOpt then
-        local err = string.format(
-            "Trimmy: Invalid option '%s'. Available options are 'trimOnSave' and 'pattern'.",
+        local errMsg = string.format(
+            "TRIMMY: Invalid option '%s'.",
             badOpt
         )
-        error(err)
+        vim.notify(errMsg, vim.log.levels.ERROR)
     end
 
     local obj = opts
